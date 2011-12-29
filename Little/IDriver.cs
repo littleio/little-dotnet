@@ -78,7 +78,6 @@ namespace Little
       /// <param name="type">the asset's type</param>
       int LikedAssetsByTypeCount(int type);
 
-
       /// <summary>
       /// Logs a login attempt
       /// </summary>
@@ -100,5 +99,14 @@ namespace Little
       /// <param name="user">the user to get the login attempts for</param>
       /// <param name="count">the number of login attepts to get</param>
       ICollection<LoginAttempt> LoginAttempts(string user, int count);
+
+      /// <summary>
+      /// Returns the signature required to get login attempts or the previous successful login attempt
+      /// </summary>
+      /// <remarks>
+      /// This is only useful when combined with the javascript library
+      /// </remarks>
+      /// <param name="user">the user</param>
+      string LoginAttemptsSignature(string user);
    }
 }

@@ -90,5 +90,10 @@ namespace Little
          var payload = new Dictionary<string, object> { { "user", user }, {"count", count} };
          return new Communicator(this).Send<ICollection<LoginAttempt>>(Communicator.Get, "attempts", payload, "user");
       }
+
+      public string LoginAttemptsSignature(string user)
+      {
+         return Communicator.GetSignature(new Dictionary<string, object> { { "user", user }, { "key", Key } }, Secret, "attempts", "user");
+      }
    }
 }

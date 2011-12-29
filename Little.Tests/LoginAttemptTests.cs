@@ -38,6 +38,12 @@ namespace Little.Tests
          Assert.AreEqual("geidi prime", attempts.ElementAt(1).Country);
       }
 
+      [Test]
+      public void GetsTheSignature()
+      {
+         Assert.AreEqual("e86fa1d454445ece94a90a219019e133273a9b22", new Driver("over", "9000").LoginAttemptsSignature("4e"));
+      }
+
       private static void AssertFirstAttempt(LoginAttempt attempt)
       {
          Assert.AreEqual("233.203.94.99", attempt.IpAddress);
