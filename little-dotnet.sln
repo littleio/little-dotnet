@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Little", "Little\Little.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Little.Tests", "Little.Tests\Little.Tests.csproj", "{23CE90C5-1A64-4653-8C45-61B3393405A7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D5656EE-DBBF-41E5-A2F3-52A6CFDC3F69}"
+	ProjectSection(SolutionItems) = preProject
+		little-dotnet.nuspec = little-dotnet.nuspec
+		readme.md = readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

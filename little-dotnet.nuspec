@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>little-dotnet</id>
+    <version>0.1</version>
+    <authors>Karl Seguin</authors>
+    <owners>Karl Seguin</owners>
+    <projectUrl>http://little.io</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET library for little.io</description>
+    <tags>little.io library api SaaS cloud webservice</tags>
+      <dependencies>
+         <dependency id="Newtonsoft.Json" version="4.0.2" />
+      </dependencies>
+  </metadata>
+  <files>
+    <file src="Little\bin\Release\Little.dll" target="lib"/>
+  </files>
+</package>
