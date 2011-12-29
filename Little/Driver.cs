@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -70,6 +71,24 @@ namespace Little
       {
          var payload = new Dictionary<string, object> { { "type", type }, { "count", 1 } };
          return new Communicator(this).Send<CountContainer>(Communicator.Get, "likes", payload).Count;
+      }
+
+      public LoginFailureRate LoginAttempt(string user, string ipAddress, bool success)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "ip", ipAddress }, {"ok", success ? 1 : 0} };
+         return new Communicator(this).Send<LoginFailureRate>(Communicator.Post, "attempts", payload, "user", "ip", "ok");
+      }
+
+      public LoginAttempt PreviousSuccessfulLoginAttempt(string user)
+      {
+         var payload = new Dictionary<string, object> { { "user", user } };
+         return new Communicator(this).Send<LoginAttempt>(Communicator.Get, "attempts", payload, "user");
+      }
+
+      public ICollection<LoginAttempt> LoginAttempts(string user, int count)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, {"count", count} };
+         return new Communicator(this).Send<ICollection<LoginAttempt>>(Communicator.Get, "attempts", payload, "user");
       }
    }
 }

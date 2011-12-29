@@ -77,5 +77,28 @@ namespace Little
       /// </summary>
       /// <param name="type">the asset's type</param>
       int LikedAssetsByTypeCount(int type);
+
+
+      /// <summary>
+      /// Logs a login attempt
+      /// </summary>
+      /// <param name="user">the user logging in</param>
+      /// <param name="ipAddress">the user's ip address</param>
+      /// <param name="success">whether the login was successful or not</param>
+      /// <returns>The number of failed logins in the last 0.5, 1, 3 and 5 minutes</returns>
+      LoginFailureRate LoginAttempt(string user, string ipAddress, bool success);
+
+      /// <summary>
+      /// Gets the previous (2nd last) successful login attempt
+      /// </summary>
+      /// <param name="user">the user to get the login attempt for</param>
+      LoginAttempt PreviousSuccessfulLoginAttempt(string user);
+
+      /// <summary>
+      /// Gets the previous (2nd last) successful login attempt
+      /// </summary>
+      /// <param name="user">the user to get the login attempts for</param>
+      /// <param name="count">the number of login attepts to get</param>
+      ICollection<LoginAttempt> LoginAttempts(string user, int count);
    }
 }

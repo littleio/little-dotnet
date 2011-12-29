@@ -42,6 +42,7 @@
     <Compile Include="FakeContext.cs" />
     <Compile Include="FakeServer.cs" />
     <Compile Include="LikeTests.cs" />
+    <Compile Include="LoginAttemptTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
