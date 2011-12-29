@@ -43,6 +43,7 @@
     <Compile Include="FakeServer.cs" />
     <Compile Include="LikeTests.cs" />
     <Compile Include="LoginAttemptTests.cs" />
+    <Compile Include="NotificationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

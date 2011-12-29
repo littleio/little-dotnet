@@ -108,5 +108,33 @@ namespace Little
       /// </remarks>
       /// <param name="user">the user</param>
       string LoginAttemptsSignature(string user);
+
+      /// <summary>
+      /// Gets the notification for the user for the given type
+      /// </summary>
+      /// <remarks>
+      /// If the user has responded to this particular notification, the return value will be null
+      /// </remarks>
+      /// <param name="user">the user</param>
+      /// <param name="type">the notification type</param>
+      Notification Notification(string user, int type);
+
+      /// <summary>
+      /// Saves a user's response to a notification
+      /// </summary>
+      /// <param name="user">the user</param>
+      /// <param name="notificationId">the notification id</param>
+      /// <param name="response">the user's response</param>
+      void RespondToNotification(string user, string notificationId, int response);
+
+      /// <summary>
+      /// The signature to respond to a notification
+      /// </summary>
+      /// <remarks>
+      /// This is only useful when combined with the javascript library
+      /// </remarks>
+      /// <param name="user">the user</param>
+      /// <param name="notificationId">the notification id</param>
+      string RespondToNotificationSignature(string user, string notificationId);
    }
 }

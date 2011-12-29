@@ -31,7 +31,7 @@ namespace Little
             try
             {
                var body = GetResponseBody(response);
-               return JsonConvert.DeserializeObject<T>(body);
+               return string.IsNullOrEmpty(body) ? default(T) : JsonConvert.DeserializeObject<T>(body);
             }
             catch (Exception e)
             {

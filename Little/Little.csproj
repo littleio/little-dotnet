@@ -52,6 +52,7 @@
     <Compile Include="Models\LikeTypeGroup.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\LoginFailureRate.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

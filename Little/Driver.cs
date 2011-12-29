@@ -95,5 +95,22 @@ namespace Little
       {
          return Communicator.GetSignature(new Dictionary<string, object> { { "user", user }, { "key", Key } }, Secret, "attempts", "user");
       }
+
+      public Notification Notification(string user, int type)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "type", type } };
+         return new Communicator(this).Send<Notification>(Communicator.Get, "notifications", payload);
+      }
+
+      public void RespondToNotification(string user, string notificationId, int response)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "notification", notificationId }, { "response", response } };
+         new Communicator(this).Send(Communicator.Post, "notifications", payload, "user", "notification");
+      }
+
+      public string RespondToNotificationSignature(string user, string notificationId)
+      {
+         return Communicator.GetSignature(new Dictionary<string, object> { { "user", user }, {"notification", notificationId}, { "key", Key }}, Secret, "user", "notification");
+      }
    }
 }
