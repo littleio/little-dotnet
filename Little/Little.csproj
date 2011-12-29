@@ -47,12 +47,14 @@
     <Compile Include="LittleException.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Count.cs" />
+    <Compile Include="Models\CountContainer.cs" />
+    <Compile Include="Models\IdContainer.cs" />
     <Compile Include="Models\Like.cs" />
     <Compile Include="Models\LikeTypeGroup.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\LoginFailureRate.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

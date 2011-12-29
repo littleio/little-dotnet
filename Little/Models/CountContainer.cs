@@ -1,6 +1,6 @@
 namespace Little
 {
-   public class CountContainer
+   internal class CountContainer
    {
       public int Count { get; set; }
    }

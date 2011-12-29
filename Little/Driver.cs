@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,6 +5,8 @@ namespace Little
 {
    public class Driver : IDriver, IRequestContext
    {
+      private static readonly string[] _blankSigature = new string[0];
+
       public const string Version = "v1";
       public string Key { get; private set; }
       public string Secret { get; private set; }
@@ -111,6 +112,78 @@ namespace Little
       public string RespondToNotificationSignature(string user, string notificationId)
       {
          return Communicator.GetSignature(new Dictionary<string, object> { { "user", user }, {"notification", notificationId}, { "key", Key }}, Secret, "user", "notification");
+      }
+
+      public string Tag(string user, string asset, int type, bool share)
+      {
+         return Tag(user, asset, type, share, null);
+      }
+
+      public string Tag(string user, string asset, int type, bool share, string data)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "asset", asset }, { "type", type }, {"share", share ? 1 : 0} };
+         if (!string.IsNullOrEmpty(data))
+         {
+            payload["data"] = data;
+         }
+         return new Communicator(this).Send<IdContainer>(Communicator.Post, "tags", payload, "user").Id;
+      }
+
+      public string TagSignature(string user)
+      {
+         return Communicator.GetSignature(new Dictionary<string, object> { { "user", user }, { "key", Key } }, Secret, "tags", "user");
+      }
+
+      public Tag TagById(string id, bool sharedOnly)
+      {
+         var payload = new Dictionary<string, object> { { "id", id } };
+         return new Communicator(this).Send<Tag>(Communicator.Get, "tags", payload, sharedOnly ? _blankSigature : new[]{"id"});
+      }
+
+      public ICollection<Tag> UserTags(string user, int page, int records, bool sharedOnly)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "page", page }, { "records", records } };
+         return new Communicator(this).Send<ICollection<Tag>>(Communicator.Get, "tags", payload, sharedOnly ? _blankSigature : new[]{"user"});
+      }
+
+      public int UserTagCount(string user, bool sharedOnly)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "count", 1 } };
+         return new Communicator(this).Send<CountContainer>(Communicator.Get, "tags", payload, sharedOnly ? _blankSigature : new[] { "user" }).Count;
+      }
+
+      public ICollection<Tag> UserTags(string user, string asset, int type, int page, int records, bool sharedOnly)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "asset", asset }, { "type", type }, { "page", page }, { "records", records } };
+         return new Communicator(this).Send<ICollection<Tag>>(Communicator.Get, "tags", payload, sharedOnly ? _blankSigature : new[] { "user", "asset", "type" });
+      }
+
+      public int UserTagCount(string user, string asset, int type, bool sharedOnly)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "asset", asset }, { "type", type }, { "count", 1 } };
+         return new Communicator(this).Send<CountContainer>(Communicator.Get, "tags", payload, sharedOnly ? _blankSigature : new[] { "user", "asset", "type" }).Count;
+      }
+
+      public string UserTagsSignature(string user)
+      {
+         return Communicator.GetSignature(new Dictionary<string, object> { { "user", user }, { "key", Key } }, Secret, "tags", "user");
+      }
+
+      public string UserTagsSignature(string user, string asset, int type)
+      {
+         return Communicator.GetSignature(new Dictionary<string, object> { { "user", user }, { "asset", asset }, { "type", type }, { "key", Key } }, Secret, "tags", "user", "asset", "type");
+      }
+
+      public ICollection<Tag> AssetTags(string asset, int type, int page, int records)
+      {
+         var payload = new Dictionary<string, object> { { "asset", asset }, { "type", type }, { "page", page }, { "records", records } };
+         return new Communicator(this).Send<ICollection<Tag>>(Communicator.Get, "tags", payload);
+      }
+
+      public int AssetTagCount(string asset, int type)
+      {
+         var payload = new Dictionary<string, object> { { "asset", asset }, { "type", type }, { "count", 1 } };
+         return new Communicator(this).Send<CountContainer>(Communicator.Get, "tags", payload).Count;
       }
    }
 }
