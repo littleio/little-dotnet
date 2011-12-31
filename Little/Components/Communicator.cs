@@ -20,13 +20,13 @@ namespace Little
          _context = context;
       }
 
-      public void Send(string method, string resource, IDictionary<string, object> partialPayload, params string[] signatureKeys)
+      public void Send(string method, string resource, string endpoint, IDictionary<string, object> partialPayload, params string[] signatureKeys)
       {
-         using (SendPayload(method, resource, partialPayload, signatureKeys)){ }
+         using (SendPayload(method, resource, endpoint, partialPayload, signatureKeys)) { }
       }
-      public T Send<T>(string method, string resource, IDictionary<string, object> partialPayload, params string[] signatureKeys)
+      public T Send<T>(string method, string resource, string endpoint, IDictionary<string, object> partialPayload, params string[] signatureKeys)
       {
-         using (var response = SendPayload(method, resource, partialPayload, signatureKeys))
+         using (var response = SendPayload(method, resource, endpoint, partialPayload, signatureKeys))
          {
             try
             {
@@ -40,10 +40,14 @@ namespace Little
          }
       }
 
-      private HttpWebResponse SendPayload(string method, string resource, IDictionary<string, object> partialPartialPayload, params string[] signatureKeys)
+      private HttpWebResponse SendPayload(string method, string resource, string endpoint, IDictionary<string, object> partialPartialPayload, params string[] signatureKeys)
       {
          var isGet = method == Get;
          var url = string.Concat(DriverConfiguration.Data.Url, _context.ApiVersion, "/", resource);
+         if (endpoint != null)
+         {
+            url += '/' + endpoint;
+         }
          var payload = FinalizePayload(partialPartialPayload, resource, signatureKeys);
          if (isGet) { url += '?' + payload; }
          var request = (HttpWebRequest)WebRequest.Create(url);

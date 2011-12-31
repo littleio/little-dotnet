@@ -18,4 +18,4 @@ The driver will automatically include the signature. However, signing helpers ar
 # Usage
 Once configured the services can be invoked via various methods:
 
-	driver.LoginAttempt("leto", "1.2.3.4", false)
+	driver.Attempt.Create("leto", "1.2.3.4", false)

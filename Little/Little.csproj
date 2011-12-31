@@ -38,24 +38,30 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttemptDriver.cs" />
     <Compile Include="Components\Communicator.cs" />
     <Compile Include="Components\IDriverConfiguration.cs" />
     <Compile Include="Components\IDriverData.cs" />
     <Compile Include="Components\IRequestContext.cs" />
     <Compile Include="Driver.cs" />
-    <Compile Include="IDriver.cs" />
+    <Compile Include="AssetDriver.cs" />
     <Compile Include="LittleException.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\AssetRank.cs" />
     <Compile Include="Models\CountContainer.cs" />
     <Compile Include="Models\IdContainer.cs" />
-    <Compile Include="Models\Like.cs" />
+    <Compile Include="Models\RateResponse.cs" />
+    <Compile Include="Models\UserAsset.cs" />
     <Compile Include="Models\LikeTypeGroup.cs" />
     <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\LoginFailureRate.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\VoteResponse.cs" />
+    <Compile Include="NotificationDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagDriver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,13 +4,13 @@ using NUnit.Framework;
 
 namespace Little.Tests
 {
-   public class LoginAttemptTests : BaseFixture
+   public class AttemptTests : BaseFixture
    {
       [Test]
       public void SendsAnAttemptRequest()
       {
          Server.Stub(new ApiExpectation { Method = "POST", Url = "/v1/attempts", Request = "user=jessica&ip=1.2.3.4&ok=0&key=akey&sig=6c047f323f54dd34b6f493c27341c0fc5ce7cb29", Response = "{half: 2, one: 3, three:3, five:6}" });
-         var rates = new Driver("akey", "sssshh2").LoginAttempt("jessica", "1.2.3.4", false);
+         var rates = new Driver("akey", "sssshh2").Attempt.Create("jessica", "1.2.3.4", false);
          Assert.AreEqual(2, rates.Last30Seconds);
          Assert.AreEqual(3, rates.LastMinute);
          Assert.AreEqual(3, rates.Last3Minutes);
@@ -21,7 +21,7 @@ namespace Little.Tests
       public void GetsThePreviousSuccessfulLoginAttempt()
       {
          Server.Stub(new ApiExpectation { Method = "GET", Url = "/v1/attempts", Request = "user=jessica&key=k1&sig=5e89d1e1380e994284dbb27d2ca0e4e3f121de84", Response = "{ip: '233.203.94.99', ok: true, ts: '2011-12-27T07:30:36Z', c: 'Caladan'}" });
-         var attempt = new Driver("k1", "bb1").PreviousSuccessfulLoginAttempt("jessica");
+         var attempt = new Driver("k1", "bb1").Attempt.PreviousSuccessful("jessica");
          AssertFirstAttempt(attempt);
       }
 
@@ -29,7 +29,7 @@ namespace Little.Tests
       public void GetsTheLastXAttempts()
       {
          Server.Stub(new ApiExpectation { Method = "GET", Url = "/v1/attempts", Request = "user=jessica&count=9&key=k1&sig=5e89d1e1380e994284dbb27d2ca0e4e3f121de84", Response = "[{ip: '233.203.94.99', ok: true, ts: '2011-12-27T07:30:36Z', c: 'Caladan'},{ip: '2.2.2.2', ok: false, ts: '2010-11-26T06:29:35Z', c: 'geidi prime'}]" });
-         var attempts = new Driver("k1", "bb1").LoginAttempts("jessica", 9);
+         var attempts = new Driver("k1", "bb1").Attempt.GetAttempts("jessica", 9);
          Assert.AreEqual(2, attempts.Count);
          AssertFirstAttempt(attempts.ElementAt(0));
          Assert.AreEqual("2.2.2.2", attempts.ElementAt(1).IpAddress);
@@ -41,7 +41,7 @@ namespace Little.Tests
       [Test]
       public void GetsTheSignature()
       {
-         Assert.AreEqual("e86fa1d454445ece94a90a219019e133273a9b22", new Driver("over", "9000").LoginAttemptsSignature("4e"));
+         Assert.AreEqual("e86fa1d454445ece94a90a219019e133273a9b22", new Driver("over", "9000").Attempt.GetAttemptsSignature("4e"));
       }
 
       private static void AssertFirstAttempt(LoginAttempt attempt)
