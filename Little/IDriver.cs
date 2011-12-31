@@ -183,14 +183,14 @@ namespace Little
       /// <param name="page">the page to get</param>
       /// <param name="records">the number of records per page</param>
       /// <param name="sharedOnly">only return the tag if it's shared</param>
-      ICollection<Tag> UserTags(string user, int page, int records, bool sharedOnly);
+      ICollection<Tag> TagsForUser(string user, int page, int records, bool sharedOnly);
 
       /// <summary>
       /// Returns the number of tags by the user (possibly more than 1 per asset)
       /// </summary>
       /// <param name="user">the user doing the tagging</param>
       /// <param name="sharedOnly">only count the tag if it's shared</param>
-      int UserTagCount(string user, bool sharedOnly);
+      int TagsForUserCount(string user, bool sharedOnly);
 
       /// <summary>
       /// Returns all of a user's tags for a specific asset
@@ -201,7 +201,7 @@ namespace Little
       /// <param name="page">the page to get</param>
       /// <param name="records">the number of records per page</param>
       /// <param name="sharedOnly">only return the tag if it's shared</param>
-      ICollection<Tag> UserTags(string user, string asset, int type, int page, int records, bool sharedOnly);
+      ICollection<Tag> TagsForUser(string user, string asset, int type, int page, int records, bool sharedOnly);
 
       /// <summary>
       /// Returns the number of tags by the user for a specific asset
@@ -210,16 +210,7 @@ namespace Little
       /// <param name="asset">the asset</param>
       /// <param name="type">the asset's type</param>
       /// <param name="sharedOnly">only count the tag if it's shared</param>
-      int UserTagCount(string user, string asset, int type, bool sharedOnly);
-
-      /// <summary>
-      /// Returns the signature required to get all of a user's tags
-      /// </summary>
-      /// <remarks>
-      /// This is only useful when combined with the javascript library
-      /// </remarks>
-      /// <param name="user">the user to get the tags for</param>
-      string UserTagsSignature(string user);
+      int TagsForUserCount(string user, string asset, int type, bool sharedOnly);
 
       /// <summary>
       /// Returns the signature required to get the user's tags for a specific asset
@@ -230,7 +221,7 @@ namespace Little
       /// <param name="user">the user to get the tags for</param>
       /// <param name="asset">the asset</param>
       /// <param name="type">the asset's type</param>
-      string UserTagsSignature(string user, string asset, int type);
+      string TagsForUserSignature(string user, string asset, int type);
 
       /// <summary>
       /// Returns all of an assets shared tag
@@ -239,13 +230,13 @@ namespace Little
       /// <param name="type">the asset's type</param>
       /// <param name="page">the page to get</param>
       /// <param name="records">the number of records per page</param>
-      ICollection<Tag> AssetTags(string asset, int type, int page, int records);
+      ICollection<Tag> TagsForAsset(string asset, int type, int page, int records);
 
       /// <summary>
       /// Returns the number of shared tags for a specific asset
       /// </summary>
       /// <param name="asset">the asset</param>
       /// <param name="type">the asset's type</param>
-      int AssetTagCount(string asset, int type);
+      int TagsForAssetCount(string asset, int type);
    }
 }
