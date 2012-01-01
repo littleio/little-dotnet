@@ -38,7 +38,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttemptDriver.cs" />
+    <Compile Include="UserDriver.cs" />
     <Compile Include="Components\Communicator.cs" />
     <Compile Include="Components\IDriverConfiguration.cs" />
     <Compile Include="Components\IDriverData.cs" />

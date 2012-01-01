@@ -28,7 +28,7 @@ namespace Little
       /// <summary>
       /// Methods to deal with login attempts
       /// </summary>
-      IAttemptDriver Attempt { get; }
+      IUserDriver User { get; }
    }
 
    public class Driver : IDriver, IRequestContext
@@ -50,13 +50,13 @@ namespace Little
          Asset = new AssetDriver(this);
          Tag = new TagDriver(this);
          Notification = new NotificationDriver(this);
-         Attempt = new AttemptDriver(this);
+         User = new UserDriver(this);
       }
 
       public IAssetDriver Asset { get; private set; }
       public ITagDriver Tag { get; private set; }
       public INotificationDriver Notification { get; private set; }
-      public IAttemptDriver Attempt { get; private set; }
+      public IUserDriver User { get; private set; }
 
 
       public bool DoesUserLikeAsset(string user, string asset, int type)

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Little
 {
-   public interface IAttemptDriver
+   public interface IUserDriver
    {
       /// <summary>
       /// Logs a login attempt
@@ -11,7 +11,7 @@ namespace Little
       /// <param name="ipAddress">the user's ip address</param>
       /// <param name="success">whether the login was successful or not</param>
       /// <returns>The number of failed logins in the last 0.5, 1, 3 and 5 minutes</returns>
-      LoginFailureRate Create(string user, string ipAddress, bool success);
+      LoginFailureRate Attempt(string user, string ipAddress, bool success);
 
       /// <summary>
       /// Gets the previous (2nd last) successful login attempt
@@ -36,16 +36,16 @@ namespace Little
       string GetAttemptsSignature(string user);
    }
 
-   public class AttemptDriver : IAttemptDriver
+   public class UserDriver : IUserDriver
    {
       private readonly IRequestContext _context;
 
-      public AttemptDriver(IRequestContext context)
+      public UserDriver(IRequestContext context)
       {
          _context = context;
       }
 
-      public LoginFailureRate Create(string user, string ipAddress, bool success)
+      public LoginFailureRate Attempt(string user, string ipAddress, bool success)
       {
          var payload = new Dictionary<string, object> { { "user", user }, { "ip", ipAddress }, { "ok", success ? 1 : 0 } };
          return new Communicator(_context).Send<LoginFailureRate>(Communicator.Post, "attempts", null, payload, "user", "ip", "ok");
