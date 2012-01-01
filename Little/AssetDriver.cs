@@ -142,6 +142,11 @@ namespace Little
       /// </summary>
       /// <param name="type">the type</param>
       int CountByType(int type);
+
+      /// <summary>
+      /// Queues the asset for deletion. This will purge all assets (votes/rating) and tags...forever!!!
+      /// </summary>
+      void Delete(string asset, int type);
    }
 
    public class AssetDriver : IAssetDriver
@@ -249,6 +254,12 @@ namespace Little
       {
          var payload = new Dictionary<string, object> { { "type", type } };
          return new Communicator(_context).Send<CountContainer>(Communicator.Get, "assets", "count", payload).Count;
+      }
+
+      public void Delete(string asset, int type)
+      {
+         var payload = new Dictionary<string, object> { { "asset", asset }, {"type", type}, { "verify", "kludge" }};
+         new Communicator(_context).Send(Communicator.Delete, "assets", null, payload, "asset", "type", "verify");
       }
    }
 }

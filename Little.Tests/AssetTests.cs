@@ -129,5 +129,12 @@ namespace Little.Tests
          Server.Stub(new ApiExpectation { Method = "GET", Url = "/v1/assets/count", Request = "type=6&key=kk", Response = "{count:588}" });
          new Driver("kk", "sssshh2").Asset.CountByType(6);
       }
+
+      [Test]
+      public void DeletesTheAsset()
+      {
+         Server.Stub(new ApiExpectation { Method = "DELETE", Url = "/v1/assets", Request = "asset=iwillgetu&type=9&verify=kludge&key=kkeyy&sig=56517fb77873feaf3905da7bc9f893eee86a66e3", Response = "" });
+         new Driver("kkeyy", "s1").Asset.Delete("iwillgetu", 9);
+      }
    }
 }
