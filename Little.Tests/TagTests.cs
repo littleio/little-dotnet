@@ -36,6 +36,13 @@ namespace Little.Tests
       }
 
       [Test]
+      public void DeletesATag()
+      {
+         Server.Stub(new ApiExpectation { Method = "DELETE", Url = "/v1/tags", Request = "id=87&key=kkeyy&sig=30739f42e161d0d4378a4ac34a362cbb7d75e9be", Response = _firstTagJson });
+         new Driver("kkeyy", "s1").Tag.Delete("87");
+      }
+
+      [Test]
       public void GetsANonSharedTagById()
       {
          Server.Stub(new ApiExpectation { Method = "GET", Url = "/v1/tags", Request = "id=93&key=ak&sig=45d17601a3f17fd1fd4832085f08f4ed71b95d36", Response = _firstTagJson });

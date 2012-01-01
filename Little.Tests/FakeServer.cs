@@ -90,7 +90,7 @@ namespace Little.Tests
       }
       private static string ExtractBody(HttpListenerRequest request)
       {
-         if (request.HttpMethod == "GET")
+         if (request.HttpMethod == "GET" || request.HttpMethod == "DELETE")
          {
             return request.Url.Query.Length > 0 ? request.Url.Query.Substring(1) : null;
          }

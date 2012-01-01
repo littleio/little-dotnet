@@ -12,8 +12,10 @@ namespace Little
    {
       public const string Get = "GET";
       public const string Post = "POST";
+      public const string Delete = "DELETE";
 
       private readonly IRequestContext _context;
+      
 
       public Communicator(IRequestContext context)
       {
@@ -42,14 +44,14 @@ namespace Little
 
       private HttpWebResponse SendPayload(string method, string resource, string endpoint, IDictionary<string, object> partialPartialPayload, params string[] signatureKeys)
       {
-         var isGet = method == Get;
+         var isQueryRequest = method == Get || method == Delete;
          var url = string.Concat(DriverConfiguration.Data.Url, _context.ApiVersion, "/", resource);
          if (endpoint != null)
          {
             url += '/' + endpoint;
          }
          var payload = FinalizePayload(partialPartialPayload, resource, signatureKeys);
-         if (isGet) { url += '?' + payload; }
+         if (isQueryRequest) { url += '?' + payload; }
          var request = (HttpWebRequest)WebRequest.Create(url);
          request.Method = method;
          request.UserAgent = "little-csharp";
@@ -57,7 +59,7 @@ namespace Little
          request.ReadWriteTimeout = 10000;
          request.KeepAlive = false;
 
-         if (!isGet)
+         if (!isQueryRequest)
          {
             WriteResponse(request, payload);
          }

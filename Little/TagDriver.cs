@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Little
@@ -40,6 +41,12 @@ namespace Little
       /// <param name="id">the tag's id</param>
       /// <param name="sharedOnly">only return the tag if it's shared</param>
       Tag ById(string id, bool sharedOnly);
+
+      /// <summary>
+      /// Deletes te tag
+      /// </summary>
+      /// <param name="id">the id of the tag to delete</param>
+      void Delete(string id);
 
 
       /// <summary>
@@ -139,6 +146,12 @@ namespace Little
       {
          var payload = new Dictionary<string, object> { { "id", id } };
          return new Communicator(_context).Send<Tag>(Communicator.Get, "tags", null, payload, sharedOnly ? Driver.BlankSigature : new[] { "id" });
+      }
+
+      public void Delete(string id)
+      {
+         var payload = new Dictionary<string, object> { { "id", id } };
+         new Communicator(_context).Send(Communicator.Delete, "tags", null, payload, "id");
       }
 
       public ICollection<Tag> ForUser(string user, int page, int records, bool sharedOnly)
