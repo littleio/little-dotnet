@@ -48,19 +48,19 @@ namespace Little
       public LoginFailureRate Attempt(string user, string ipAddress, bool success)
       {
          var payload = new Dictionary<string, object> { { "user", user }, { "ip", ipAddress }, { "ok", success ? 1 : 0 } };
-         return new Communicator(_context).Send<LoginFailureRate>(Communicator.Post, "attempts", null, payload, "user", "ip", "ok");
+         return new Communicator(_context).Send<LoginFailureRate>(Communicator.Post, "user", "attempt", payload, "user", "ip", "ok");
       }
 
       public LoginAttempt PreviousSuccessful(string user)
       {
          var payload = new Dictionary<string, object> { { "user", user } };
-         return new Communicator(_context).Send<LoginAttempt>(Communicator.Get, "attempts", null, payload, "user");
+         return new Communicator(_context).Send<LoginAttempt>(Communicator.Get, "user", "attempts", payload, "user");
       }
 
       public ICollection<LoginAttempt> GetAttempts(string user, int count)
       {
          var payload = new Dictionary<string, object> { { "user", user }, { "count", count } };
-         return new Communicator(_context).Send<ICollection<LoginAttempt>>(Communicator.Get, "attempts", null, payload, "user");
+         return new Communicator(_context).Send<ICollection<LoginAttempt>>(Communicator.Get, "user", "attempts", payload, "user");
       }
 
       public string GetAttemptsSignature(string user)
