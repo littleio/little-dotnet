@@ -150,8 +150,8 @@ namespace Little
 
       public void Delete(string id)
       {
-         var payload = new Dictionary<string, object> { { "id", id } };
-         new Communicator(_context).Send(Communicator.Delete, "tags", null, payload, "id");
+         var payload = new Dictionary<string, object> { { "id", id }, {"verify", "kludge"} };
+         new Communicator(_context).Send(Communicator.Delete, "tags", null, payload, "id", "verify");
       }
 
       public ICollection<Tag> ForUser(string user, int page, int records, bool sharedOnly)

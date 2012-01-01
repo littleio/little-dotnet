@@ -38,7 +38,7 @@ namespace Little.Tests
       [Test]
       public void DeletesATag()
       {
-         Server.Stub(new ApiExpectation { Method = "DELETE", Url = "/v1/tags", Request = "id=87&key=kkeyy&sig=30739f42e161d0d4378a4ac34a362cbb7d75e9be", Response = _firstTagJson });
+         Server.Stub(new ApiExpectation { Method = "DELETE", Url = "/v1/tags", Request = "id=87&verify=kludge&key=kkeyy&sig=5555907d61c1b2d48fe586a11c00b7bbba91e417", Response = "" });
          new Driver("kkeyy", "s1").Tag.Delete("87");
       }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Little
@@ -34,6 +35,11 @@ namespace Little
       /// </remarks>
       /// <param name="user">the user</param>
       string GetAttemptsSignature(string user);
+
+      /// <summary>
+      /// Queues the user for deletion. This will purge all assets (votes/rating for the user), tags, responses, login attempts...forever.
+      /// </summary>
+      void Delete(string user);
    }
 
    public class UserDriver : IUserDriver
@@ -48,24 +54,30 @@ namespace Little
       public LoginFailureRate Attempt(string user, string ipAddress, bool success)
       {
          var payload = new Dictionary<string, object> { { "user", user }, { "ip", ipAddress }, { "ok", success ? 1 : 0 } };
-         return new Communicator(_context).Send<LoginFailureRate>(Communicator.Post, "user", "attempt", payload, "user", "ip", "ok");
+         return new Communicator(_context).Send<LoginFailureRate>(Communicator.Post, "users", "attempt", payload, "user", "ip", "ok");
       }
 
       public LoginAttempt PreviousSuccessful(string user)
       {
          var payload = new Dictionary<string, object> { { "user", user } };
-         return new Communicator(_context).Send<LoginAttempt>(Communicator.Get, "user", "attempts", payload, "user");
+         return new Communicator(_context).Send<LoginAttempt>(Communicator.Get, "users", "attempts", payload, "user");
       }
 
       public ICollection<LoginAttempt> GetAttempts(string user, int count)
       {
          var payload = new Dictionary<string, object> { { "user", user }, { "count", count } };
-         return new Communicator(_context).Send<ICollection<LoginAttempt>>(Communicator.Get, "user", "attempts", payload, "user");
+         return new Communicator(_context).Send<ICollection<LoginAttempt>>(Communicator.Get, "users", "attempts", payload, "user");
       }
 
       public string GetAttemptsSignature(string user)
       {
          return Communicator.GetSignature(new Dictionary<string, object> { { "user", user }, { "key", _context.Key } }, _context.Secret, "attempts", "user");
+      }
+
+      public void Delete(string user)
+      {
+         var payload = new Dictionary<string, object> { { "user", user }, { "verify", "kludge" } };
+         new Communicator(_context).Send(Communicator.Delete, "users", null, payload, "user", "verify");
       }
    }
 }
