@@ -24,7 +24,7 @@ namespace Little.Tests
       [Test]
       public void RespondToNotification()
       {
-         Server.Stub(new ApiExpectation { Method = "POST", Url = "/v1/notifications", Request = "user=paul&notification=123&response=6&key=yek&sig=4103de2da916c9fe4792cdb48641e48698a47ecb", Response = "" });
+         Server.Stub(new ApiExpectation { Method = "POST", Url = "/v1/notifications/respond", Request = "user=paul&notification=123&response=6&key=yek&sig=4103de2da916c9fe4792cdb48641e48698a47ecb", Response = "" });
          new Driver("yek", "secrettt").Notification.Respond("paul", "123", 6);
       }
 

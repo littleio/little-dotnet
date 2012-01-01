@@ -51,7 +51,7 @@ namespace Little
       public void Respond(string user, string notificationId, int response)
       {
          var payload = new Dictionary<string, object> { { "user", user }, { "notification", notificationId }, { "response", response } };
-         new Communicator(_context).Send(Communicator.Post, "notifications", null, payload, "user", "notification");
+         new Communicator(_context).Send(Communicator.Post, "notifications", "respond", payload, "user", "notification");
       }
 
       public string RespondSignature(string user, string notificationId)
